@@ -11,10 +11,7 @@ jQuery.fn.sortable = function() {
 		var dropHandler = function(e) {
 			if (!dragging) return true;
 			e.stopPropagation();
-			placeholder.before(dragging);
-			if (index != dragging.index()) {
-				items.parent().trigger('sortupdate');
-			}
+			placeholder.after(dragging);
 			return false;
 		}; 
 		var dragHandler = function(e) {
@@ -39,6 +36,9 @@ jQuery.fn.sortable = function() {
 		}).bind('dragend', function() {
 			dragging.removeClass('sortable-dragging').fadeIn();
 			placeholder.detach();
+			if (index != dragging.index()) {
+				items.parent().trigger('sortupdate');
+			}
 			dragging = null;
 		}).not('a[href], img').bind('selectstart', function() {
 			this.dragDrop && this.dragDrop();
