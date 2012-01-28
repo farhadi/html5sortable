@@ -7,11 +7,14 @@
  */
 jQuery.fn.sortable = function() {
 	return this.each(function() {
-		var $ = jQuery, dragging, dropHandler, dragHandler, items = $(this).children();
+		var $ = jQuery, index, dragging, dropHandler, dragHandler, items = $(this).children();
 		var dropHandler = function(e) {
 			if (!dragging) return true;
 			e.stopPropagation();
-			placeholder.after(dragging);
+			placeholder.before(dragging);
+			if (index != dragging.index()) {
+				items.parent().trigger('sortupdate');
+			}
 			return false;
 		}; 
 		var dragHandler = function(e) {
@@ -32,6 +35,7 @@ jQuery.fn.sortable = function() {
 			dt.effectAllowed = 'move';
 			dt.setData('Text', 'dummy');
 			dragging = $(this).addClass('sortable-dragging');
+			index = dragging.index();
 		}).bind('dragend', function() {
 			dragging.removeClass('sortable-dragging').fadeIn();
 			placeholder.detach();
