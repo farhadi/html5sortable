@@ -18,7 +18,7 @@ jQuery.fn.sortable = function() {
 			if (!dragging) return true;
 			e.preventDefault();
 			e.originalEvent.dataTransfer.dropEffect = 'move';
-			if (this !== placeholder[0] && this !== placeholder.parent()[0]) {
+			if (items.is(this)) {
 				dragging.hide();
 				$(this)[placeholder.index() < $(this).index() ? 'after' : 'before'](placeholder);
 			}
