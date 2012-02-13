@@ -3,10 +3,18 @@
 	<meta charset="utf-8">
 	<title>HTML5 Sortable jQuery Plugin</title>
 	<style>
+		body {
+			font-family: 'Droid Serif';
+		}
 		h1, h2 {
 			text-align: center;
+			font-weight: normal;
 		}
-		ul {
+		#features {
+			margin: auto;
+			width: 420px;
+		}
+		.sortable {
 			margin: auto;
 			padding: 0;
 		}
@@ -21,7 +29,7 @@
 			list-style: none;
 			border: 1px solid #CCC;
 			background: #F6F6F6;
-			font: normal 1em "Tahoma";
+			font-family: "Tahoma";
 			color: #1C94C4;
 			margin: 5px;
 			padding: 5px;
@@ -39,12 +47,21 @@
 			background: none;
 		}
 	</style>
+	<link href='http://fonts.googleapis.com/css?family=Droid+Serif' rel='stylesheet' type='text/css'>
 </head>
 
 <body>
 	<header>
 		<h1>HTML5 Sortable jQuery Plugin</h1>
 	</header>
+	<article>
+		<h2>Features</h2>
+		<ul id="features">
+			<li>Less than 1KB (minified).
+			<li>Built using native HTML5 drag and drop API.</li>
+			<li>Works in IE 6+, Firefox 3.5+, Chrome 3+ and, Safari 3+.</li>
+		<ul>
+	</article>
 	<article>
 		<h2>Sortable List</h2>
 		<ul class="sortable list">
