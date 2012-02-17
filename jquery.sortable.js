@@ -7,25 +7,8 @@
  */
 jQuery.fn.sortable = function() {
 	return this.each(function() {
-		var $ = jQuery, index, dragging, dropHandler, dragHandler, items = $(this).children();
-		var dropHandler = function(e) {
-			if (!dragging) return true;
-			e.stopPropagation();
-			placeholder.after(dragging);
-			return false;
-		}; 
-		var dragHandler = function(e) {
-			if (!dragging) return true;
-			e.preventDefault();
-			e.originalEvent.dataTransfer.dropEffect = 'move';
-			if (items.is(this)) {
-				dragging.hide();
-				$(this)[placeholder.index() < $(this).index() ? 'after' : 'before'](placeholder);
-			}
-			return false;
-		};
-		var placeholder = $('<' + items[0].tagName + '>').addClass('sortable-placeholder')
-			.bind('dragover', dragHandler).bind('drop', dropHandler);
+		var $ = jQuery, index, dragging, items = $(this).children();
+		var placeholder = $('<' + items[0].tagName + '>').addClass('sortable-placeholder');
 
 		items.attr('draggable', 'true').bind('dragstart', function(e) {
 			var dt = e.originalEvent.dataTransfer;
@@ -43,6 +26,20 @@ jQuery.fn.sortable = function() {
 		}).not('a[href], img').bind('selectstart', function() {
 			this.dragDrop && this.dragDrop();
 			return false;
-		}).end().add(this).bind('dragover dragenter', dragHandler).bind('drop', dropHandler);
+		}).end().add([this, placeholder]).bind('dragover dragenter', function(e) {
+			if (!dragging) return true;
+			e.preventDefault();
+			e.originalEvent.dataTransfer.dropEffect = 'move';
+			if (items.is(this)) {
+				dragging.hide();
+				$(this)[placeholder.index() < $(this).index() ? 'after' : 'before'](placeholder);
+			}
+			return false;
+		}).bind('drop', function(e) {
+			if (!dragging) return true;
+			e.stopPropagation();
+			placeholder.after(dragging);
+			return false;
+		});
 	});
 };
