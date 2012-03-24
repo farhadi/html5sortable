@@ -1,6 +1,6 @@
 /*
  * HTML5 Sortable jQuery Plugin
- * http://farhadi.github.com/html5sortable
+ * http://farhadi.ir/projects/html5sortable
  * 
  * Copyright 2012, Ali Farhadi
  * Released under the MIT license.
