@@ -48,7 +48,7 @@ $.fn.sortable = function(options) {
 				return true;
 			}
 			e.stopPropagation();
-			placeholder.after(dragging);
+			placeholders.filter(':visible').after(dragging);
 			return false;
 		});
 	});
