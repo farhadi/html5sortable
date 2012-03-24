@@ -40,8 +40,8 @@ $.fn.sortable = function(options) {
 			if (items.is(this)) {
 				dragging.hide();
 				$(this)[placeholder.index() < $(this).index() ? 'after' : 'before'](placeholder);
+				placeholders.not(placeholder).detach();
 			}
-			placeholders.not(placeholder).detach();
 			return false;
 		}).bind('drop', function(e) {
 			if (!items.is(dragging) && connectWith !== $(dragging).parent().data('connectWith')) {
