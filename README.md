@@ -1,7 +1,7 @@
 HTML5 Sortable jQuery Plugin
 ============================
 
-**[See it in action](http://farhadi.github.com/html5sortable)**
+**[Demos & Documentation](http://farhadi.ir/projects/html5sortable)**
 
 Features
 --------

@@ -3,6 +3,9 @@
 	<meta charset="utf-8">
 	<title>HTML5 Sortable jQuery Plugin</title>
 	<style>
+		header, section {
+			display: block;
+		}
 		body {
 			font-family: 'Droid Serif';
 		}
@@ -15,7 +18,7 @@
 			width: 460px;
 			font-size: 0.9em;
 		}
-		.sortable {
+		.connected, .sortable {
 			margin: auto;
 			padding: 0;
 		}
@@ -26,7 +29,7 @@
 			width: 410px;
 			overflow: hidden;
 		}
-		.sortable li {
+		.connected li, .sortable li {
 			list-style: none;
 			border: 1px solid #CCC;
 			background: #F6F6F6;
@@ -43,6 +46,21 @@
 			height: 80px;
 			text-align: center;
 		}
+		li.highlight {
+			background: #FEE25F;
+		}
+		#connected {
+			width: 440px;
+			overflow: hidden;
+			margin: auto;
+		}
+		.connected {
+			float: left;
+			width: 200px;
+		}
+		.connected.no2 {
+			float: right;
+		}
 		li.sortable-placeholder {
 			border: 1px dashed #CCC;
 			background: none;
@@ -55,7 +73,7 @@
 	<header>
 		<h1>HTML5 Sortable jQuery Plugin</h1>
 	</header>
-	<article>
+	<section>
 		<h2>Features</h2>
 		<ul id="features">
 			<li>Less than 1KB (minified).
@@ -63,9 +81,9 @@
 			<li>Supports both list and grid style layouts.</li>
 			<li>Similar API and behaviour to jquery-ui sortable plugin.</li>
 			<li>Works in IE 6+, Firefox 3.5+, Chrome 3+, Safari 3+ and, Opera 12+.</li>
-		<ul>
-	</article>
-	<article>
+		</ul>
+	</section>
+	<section>
 		<h2>Sortable List</h2>
 		<ul class="sortable list">
 			<li>Item 1</li>
@@ -77,8 +95,8 @@
 			<li>Item 7</li>
 			<li>Item 8</li>
 		</ul>
-	</article>
-	<article>
+	</section>
+	<section>
 		<h2>Sortable Grid</h2>
 		<ul class="sortable grid">
 			<li>Item 1</li>
@@ -90,13 +108,39 @@
 			<li>Item 7</li>
 			<li>Item 8</li>
 		</ul>
-	</article>
+	</section>
+	<section id="connected">
+		<h2>Connected Sortable Lists</h2>
+		<ul class="connected list">
+			<li>Item 1</li>
+			<li>Item 2</li>
+			<li>Item 3</li>
+			<li>Item 4</li>
+			<li>Item 5</li>
+			<li>Item 6</li>
+			<li>Item 7</li>
+			<li>Item 8</li>
+		</ul>
+		<ul class="connected list no2">
+			<li class="highlight">Item 1</li>
+			<li class="highlight">Item 2</li>
+			<li class="highlight">Item 3</li>
+			<li class="highlight">Item 4</li>
+			<li class="highlight">Item 5</li>
+			<li class="highlight">Item 6</li>
+			<li class="highlight">Item 7</li>
+			<li class="highlight">Item 8</li>
+		</ul>
+	</section>
 	<a href="http://github.com/farhadi/html5sortable"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://a248.e.akamai.net/assets.github.com/img/edc6dae7a1079163caf7f17c60495bbb6d027c93/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub"></a>
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 	<script src="jquery.sortable.js"></script>
 	<script>
 		$(function() {
 			$('.sortable').sortable();
+			$('.connected').sortable({
+				connectWith: '.connected'
+			});
 		});
 	</script>
 </body>

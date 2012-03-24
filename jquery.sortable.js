@@ -5,11 +5,16 @@
  * Copyright 2012, Ali Farhadi
  * Released under the MIT license.
  */
-jQuery.fn.sortable = function() {
+(function($) {
+var dragging, placeholders = $();
+$.fn.sortable = function(options) {
 	return this.each(function() {
-		var $ = jQuery, index, dragging, items = $(this).children();
+		var index, items = $(this).children(), connectWith = false;
 		var placeholder = $('<' + items[0].tagName + '>').addClass('sortable-placeholder');
-
+		placeholders = placeholders.add(placeholder);
+		if (options && options.connectWith) {
+			$(connectWith = options.connectWith).add(this).data('connectWith', connectWith);
+		}
 		items.attr('draggable', 'true').bind('dragstart', function(e) {
 			var dt = e.originalEvent.dataTransfer;
 			dt.effectAllowed = 'move';
@@ -18,7 +23,7 @@ jQuery.fn.sortable = function() {
 			index = dragging.index();
 		}).bind('dragend', function() {
 			dragging.removeClass('sortable-dragging').fadeIn();
-			placeholder.detach();
+			placeholders.detach();
 			if (index != dragging.index()) {
 				items.parent().trigger('sortupdate');
 			}
@@ -27,19 +32,25 @@ jQuery.fn.sortable = function() {
 			this.dragDrop && this.dragDrop();
 			return false;
 		}).end().add([this, placeholder]).bind('dragover dragenter', function(e) {
-			if (!dragging) return true;
+			if (!items.is(dragging) && connectWith !== $(dragging).parent().data('connectWith')) {
+				return true;
+			}
 			e.preventDefault();
 			e.originalEvent.dataTransfer.dropEffect = 'move';
 			if (items.is(this)) {
 				dragging.hide();
 				$(this)[placeholder.index() < $(this).index() ? 'after' : 'before'](placeholder);
 			}
+			placeholders.not(placeholder).detach();
 			return false;
 		}).bind('drop', function(e) {
-			if (!dragging) return true;
+			if (!items.is(dragging) && connectWith !== $(dragging).parent().data('connectWith')) {
+				return true;
+			}
 			e.stopPropagation();
 			placeholder.after(dragging);
 			return false;
 		});
 	});
 };
+})(jQuery);
