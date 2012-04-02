@@ -8,13 +8,12 @@
 (function($) {
 var dragging, placeholders = $();
 $.fn.sortable = function(options) {
+	options = options || {};
 	return this.each(function() {
-		var index, items = $(this).children(), connectWith = false;
+		var index, items = $(this).children(options.items), connectWith = options.connectWith || false;
 		var placeholder = $('<' + items[0].tagName + '>').addClass('sortable-placeholder');
 		placeholders = placeholders.add(placeholder);
-		if (options && options.connectWith) {
-			$(connectWith = options.connectWith).add(this).data('connectWith', connectWith);
-		}
+		$(connectWith).add(connectWith && this).data('connectWith', connectWith);
 		items.attr('draggable', 'true').bind('dragstart', function(e) {
 			var dt = e.originalEvent.dataTransfer;
 			dt.effectAllowed = 'move';

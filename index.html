@@ -18,18 +18,21 @@
 			width: 460px;
 			font-size: 0.9em;
 		}
-		.connected, .sortable {
+		.connected, .sortable, .exclude {
 			margin: auto;
 			padding: 0;
-		}
-		.sortable.list {
-			width: 300px;
+			width: 310px;
+			-webkit-touch-callout: none;
+			-webkit-user-select: none;
+			-khtml-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
 		}
 		.sortable.grid {
-			width: 410px;
 			overflow: hidden;
 		}
-		.connected li, .sortable li {
+		.connected li, .sortable li, .exclude li {
 			list-style: none;
 			border: 1px solid #CCC;
 			background: #F6F6F6;
@@ -38,6 +41,9 @@
 			margin: 5px;
 			padding: 5px;
 			height: 22px;
+		}
+		li.disabled {
+			opacity: 0.5;
 		}
 		.sortable.grid li {
 			line-height: 80px;
@@ -92,8 +98,6 @@
 			<li>Item 4</li>
 			<li>Item 5</li>
 			<li>Item 6</li>
-			<li>Item 7</li>
-			<li>Item 8</li>
 		</ul>
 	</section>
 	<section>
@@ -105,8 +109,17 @@
 			<li>Item 4</li>
 			<li>Item 5</li>
 			<li>Item 6</li>
-			<li>Item 7</li>
-			<li>Item 8</li>
+		</ul>
+	</section>
+	<section>
+		<h2>Exclude Items</h2>
+		<ul class="exclude list">
+			<li>Item 1</li>
+			<li>Item 2</li>
+			<li>Item 3</li>
+			<li class="disabled">Item 4</li>
+			<li class="disabled">Item 5</li>
+			<li class="disabled">Item 6</li>
 		</ul>
 	</section>
 	<section id="connected">
@@ -118,8 +131,6 @@
 			<li>Item 4</li>
 			<li>Item 5</li>
 			<li>Item 6</li>
-			<li>Item 7</li>
-			<li>Item 8</li>
 		</ul>
 		<ul class="connected list no2">
 			<li class="highlight">Item 1</li>
@@ -128,8 +139,6 @@
 			<li class="highlight">Item 4</li>
 			<li class="highlight">Item 5</li>
 			<li class="highlight">Item 6</li>
-			<li class="highlight">Item 7</li>
-			<li class="highlight">Item 8</li>
 		</ul>
 	</section>
 	<a href="http://github.com/farhadi/html5sortable"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://a248.e.akamai.net/assets.github.com/img/edc6dae7a1079163caf7f17c60495bbb6d027c93/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub"></a>
@@ -140,6 +149,9 @@
 			$('.sortable').sortable();
 			$('.connected').sortable({
 				connectWith: '.connected'
+			});
+			$('.exclude').sortable({
+				items: ':not(.disabled)'
 			});
 		});
 	</script>
