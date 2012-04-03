@@ -13,9 +13,67 @@ Features
 
 Usage
 -----
+Use `sortable` method to create a sortable list:
+
+``` javascript
+$('.sortable').sortable();
+```
+Use `.sortable-dragging` and `.sortable-placeholder` CSS selectors to change the styles of a dragging item and its placeholder respectively.
+
+Use `sortupdate` event if you want to do something when the order changes (e.g. storing the new order):
+
 ``` javascript
 $('.sortable').sortable().bind('sortupdate', function() {
     //Triggered when the user stopped sorting and the DOM position has changed.
+});
+```
+
+Use `items` option to specifiy which items inside the element should be sortable:
+
+``` javascript
+$('.sortable').sortable({
+    items: ':not(.disabled)'
+});
+```
+
+Use `connectWith` option to create connected lists:
+
+``` javascript
+$('#sortable1, #sortable2').sortable({
+    connectWith: '.connected'
+});
+```
+
+To remove the sortable functionality completely:
+
+``` javascript
+$('.sortable').sortable('destroy');
+```
+
+To disable the sortable temporarily:
+
+``` javascript
+$('.sortable').sortable('disable');
+```
+
+To enable a disabled sortable:
+
+``` javascript
+$('.sortable').sortable('enable');
+```
+
+The API is compatible with jquery-ui. So you can use jquery-ui as a polyfill in older browsers:
+
+``` javascript
+yepnope({
+    test: Modernizr.draganddrop,
+    yep: 'jquery.sortable.js',
+    nope: 'jquery-ui.min.js',
+    complete: function() {
+        $('.sortable').sortable().bind('sortupdate', function() {
+            //Store the new order.
+        }
+    }
 });
 ```
 
