@@ -19,10 +19,22 @@ $.fn.sortable = function(options) {
 		}
 		var index, items = $(this).children(options.items), connectWith = options.connectWith || false;
 		var placeholder = $('<' + items[0].tagName + ' class="sortable-placeholder">');
+		var handle = options.handle, isHandle;
+		items.find(handle).mousedown(function() {
+			isHandle = true;
+		}).mouseup(function() {
+			isHandle = false;
+		});
 		$(this).data('items', options.items)
 		placeholders = placeholders.add(placeholder);
-		connectWith && $(connectWith).add(this).data('connectWith', connectWith);
+		if (connectWith) {
+			$(connectWith).add(this).data('connectWith', connectWith);
+		}
 		items.attr('draggable', 'true').bind('dragstart.h5s', function(e) {
+			if (handle && !isHandle) {
+				return false;
+			}
+			isHandle = false;
 			var dt = e.originalEvent.dataTransfer;
 			dt.effectAllowed = 'move';
 			dt.setData('Text', 'dummy');

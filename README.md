@@ -35,6 +35,13 @@ $('.sortable').sortable({
     items: ':not(.disabled)'
 });
 ```
+Use `handle` option to restrict drag start to the specified element:
+
+``` javascript
+$('.sortable').sortable({
+    handle: 'h2'
+});
+```
 
 Use `connectWith` option to create connected lists:
 
