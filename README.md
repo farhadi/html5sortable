@@ -42,6 +42,13 @@ $('.sortable').sortable({
     handle: 'h2'
 });
 ```
+Setting `forcePlaceholderSize` option to true, forces the placeholder to have a height:
+
+``` javascript
+$('.sortable').sortable({
+    forcePlaceholderSize: true 
+});
+```
 
 Use `connectWith` option to create connected lists:
 
