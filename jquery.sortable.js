@@ -8,31 +8,33 @@
 (function($) {
 var dragging, placeholders = $();
 $.fn.sortable = function(options) {
-	options = options || {};
+	var method = String(options);
+	options = $.extend({
+		connectWith: false
+	}, options);
 	return this.each(function() {
-		if (/^enable|disable|destroy$/.test(options)) {
-			var items = $(this).children($(this).data('items')).attr('draggable', options == 'enable');
-			if (options == 'destroy') {
+		if (/^enable|disable|destroy$/.test(method)) {
+			var items = $(this).children($(this).data('items')).attr('draggable', method == 'enable');
+			if (method == 'destroy') {
 				items.add(this).removeData('connectWith items')
 					.off('dragstart.h5s dragend.h5s selectstart.h5s dragover.h5s dragenter.h5s drop.h5s');
 			}
 			return;
 		}
-		var index, items = $(this).children(options.items), connectWith = options.connectWith || false;
+		var isHandle, index, items = $(this).children(options.items);
 		var placeholder = $('<' + items[0].tagName + ' class="sortable-placeholder">');
-		var handle = options.handle, isHandle;
-		items.find(handle).mousedown(function() {
+		items.find(options.handle).mousedown(function() {
 			isHandle = true;
 		}).mouseup(function() {
 			isHandle = false;
 		});
 		$(this).data('items', options.items)
 		placeholders = placeholders.add(placeholder);
-		if (connectWith) {
-			$(connectWith).add(this).data('connectWith', connectWith);
+		if (options.connectWith) {
+			$(options.connectWith).add(this).data('connectWith', options.connectWith);
 		}
 		items.attr('draggable', 'true').on('dragstart.h5s', function(e) {
-			if (handle && !isHandle) {
+			if (options.handle && !isHandle) {
 				return false;
 			}
 			isHandle = false;
@@ -52,7 +54,7 @@ $.fn.sortable = function(options) {
 			this.dragDrop && this.dragDrop();
 			return false;
 		}).end().add([this, placeholder]).on('dragover.h5s dragenter.h5s drop.h5s', function(e) {
-			if (!items.is(dragging) && connectWith !== $(dragging).parent().data('connectWith')) {
+			if (!items.is(dragging) && options.connectWith !== $(dragging).parent().data('connectWith')) {
 				return true;
 			}
 			if (e.type == 'drop') {
