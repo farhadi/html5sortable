@@ -12,9 +12,10 @@ $.fn.sortable = function(options) {
 	return this.each(function() {
 		if (/^enable|disable|destroy$/.test(options)) {
 			var items = $(this).children($(this).data('items')).attr('draggable', options == 'enable');
-			options == 'destroy' &&	items.add(this)
-				.removeData('connectWith').removeData('items')
-				.unbind('dragstart.h5s dragend.h5s selectstart.h5s dragover.h5s dragenter.h5s drop.h5s');
+			if (options == 'destroy') {
+				items.add(this).removeData('connectWith items')
+					.off('dragstart.h5s dragend.h5s selectstart.h5s dragover.h5s dragenter.h5s drop.h5s');
+			}
 			return;
 		}
 		var index, items = $(this).children(options.items), connectWith = options.connectWith || false;
@@ -30,7 +31,7 @@ $.fn.sortable = function(options) {
 		if (connectWith) {
 			$(connectWith).add(this).data('connectWith', connectWith);
 		}
-		items.attr('draggable', 'true').bind('dragstart.h5s', function(e) {
+		items.attr('draggable', 'true').on('dragstart.h5s', function(e) {
 			if (handle && !isHandle) {
 				return false;
 			}
@@ -40,17 +41,17 @@ $.fn.sortable = function(options) {
 			dt.setData('Text', 'dummy');
 			dragging = $(this).addClass('sortable-dragging');
 			index = dragging.index();
-		}).bind('dragend.h5s', function() {
+		}).on('dragend.h5s', function() {
 			dragging.removeClass('sortable-dragging').fadeIn();
 			placeholders.detach();
 			if (index != dragging.index()) {
 				items.parent().trigger('sortupdate');
 			}
 			dragging = null;
-		}).not('a[href], img').bind('selectstart.h5s', function() {
+		}).not('a[href], img').on('selectstart.h5s', function() {
 			this.dragDrop && this.dragDrop();
 			return false;
-		}).end().add([this, placeholder]).bind('dragover.h5s dragenter.h5s drop.h5s', function(e) {
+		}).end().add([this, placeholder]).on('dragover.h5s dragenter.h5s drop.h5s', function(e) {
 			if (!items.is(dragging) && connectWith !== $(dragging).parent().data('connectWith')) {
 				return true;
 			}
