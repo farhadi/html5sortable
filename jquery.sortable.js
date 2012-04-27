@@ -46,7 +46,7 @@ $.fn.sortable = function(options) {
 			dragging.removeClass('sortable-dragging').fadeIn();
 			placeholders.detach();
 			if (index != dragging.index()) {
-				items.parent().trigger('sortupdate', dragging);
+				items.parent().trigger('sortupdate', {item: dragging});
 			}
 			dragging = null;
 		}).not('a[href], img').on('selectstart.h5s', function() {

@@ -23,7 +23,8 @@ Use `.sortable-dragging` and `.sortable-placeholder` CSS selectors to change the
 Use `sortupdate` event if you want to do something when the order changes (e.g. storing the new order):
 
 ``` javascript
-$('.sortable').sortable().bind('sortupdate', function(e, draggedItem) {
+$('.sortable').sortable().bind('sortupdate', function(e, ui) {
+    //ui.item contains the current dragged element.
     //Triggered when the user stopped sorting and the DOM position has changed.
 });
 ```
@@ -84,7 +85,7 @@ yepnope({
     yep: 'jquery.sortable.js',
     nope: 'jquery-ui.min.js',
     complete: function() {
-        $('.sortable').sortable().bind('sortupdate', function(e, draggedItem) {
+        $('.sortable').sortable().bind('sortupdate', function(e, ui) {
             //Store the new order.
         }
     }
