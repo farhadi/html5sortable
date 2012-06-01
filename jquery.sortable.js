@@ -3,6 +3,7 @@
  * http://farhadi.ir/projects/html5sortable
  * 
  * Copyright 2012, Ali Farhadi
+ * Zepto support by Kalman Speier
  * Released under the MIT license.
  */
 (function ($) {
