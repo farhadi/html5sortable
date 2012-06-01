@@ -3,7 +3,6 @@
  * http://farhadi.ir/projects/html5sortable
  * 
  * Copyright 2012, Ali Farhadi
- * Zepto support by Kalman Speier
  * Released under the MIT license.
  */
 (function ($) {
@@ -12,51 +11,52 @@
         sortable: function (options) {
             var method = String(options);
             options = $.extend({
+                items: '*',
+                handle: '*',
                 connectWith: false
             }, options);
             return this.each(function () {
                 if (/^enable|disable|destroy$/.test(method)) {
-                    var items = $(this).children($(this).data('items')).attr('draggable', method == 'enable');
+                    var items = $(this).children(JSON.parse($(this).data('options')).items).attr('draggable', method == 'enable');
                     if (method == 'destroy') {
-                        items.add(this).removeData('connectWith items')
-    				.off('dragstart dragend selectstart dragover dragenter drop');
+                        $(this).removeData('options').off('mousedown mouseup selectstart dragstart dragend dragover dragenter drop');
                     }
                     return;
                 }
-                var isHandle, index;
-                var items = $(this).children(options.items).attr('draggable', 'true');
-                placeholder = $('<' + items[0].tagName + ' class="sortable-placeholder">');
-                items.find(options.handle).mousedown(function () {
+                var isHandle, index, items;
+                $(this).data('options', JSON.stringify(options));
+                $(this).on('mousedown', function () {
+                    items = $(this).children(options.items).attr('draggable', 'true');
+                    placeholder = $('<' + items[0].tagName + ' class="sortable-placeholder">');
+                }).on('mousedown', options.handle, function () {
                     isHandle = true;
-                }).mouseup(function () {
+                }).on('mouseup', options.handle, function () {
                     isHandle = false;
-                });
-                $(this).data('connectWith', options.connectWith);
-                items.on('dragstart', function (e) {
+                }).on('selectstart', options.items + ':not(a[href], img)', function (e) {
+                    e.currentTarget.dragDrop && e.currentTarget.dragDrop();
+                    return false;
+                }).on('dragstart', options.items, function (e) {
                     if (options.handle && !isHandle) return false;
                     isHandle = false;
-                    index = (dragging = $(this)).index();
+                    index = (dragging = $(e.currentTarget)).index();
                     var dt = e.originalEvent ? e.originalEvent.dataTransfer : e.dataTransfer;
                     dt.effectAllowed = 'move';
                     dt.setData('text', 'ff');
-                }).on('dragend', function (e) {
+                }).on('dragend', options.items, function () {
                     dragging.show();
                     if (index != dragging.index()) {
-                        items.parent().trigger('sortupdate', { item: dragging });
+                        $(this).trigger('sortupdate', { item: dragging });
                     }
                     placeholder.remove();
                     dragging = null;
-                }).not('a[href], img').on('selectstart', function () {
-                    this.dragDrop && this.dragDrop();
-                    return false;
-                }).add(this).on('dragover dragenter drop', function (e) {
-                    if (items.index(dragging) === -1 && (options.connectWith !== $(dragging).parent().data('connectWith') || !options.connectWith)) {
+                }).on('dragover dragenter drop', options.items, function (e) {
+                    if ((!items || items.index(dragging) === -1) && (options.connectWith !== JSON.parse($(dragging).parent().data('options')).connectWith || !options.connectWith)) {
                         return true;
                     }
                     if (e.type === 'dragenter') {
-                        if (items.index(this) != -1) {
+                        if (!items || items.index(e.currentTarget) != -1) {
                             dragging.hide();
-                            $(this)[placeholder.index() < $(this).index() ? 'after' : 'before'](placeholder);
+                            $(e.currentTarget)[placeholder.index() < $(e.currentTarget).index() ? 'after' : 'before'](placeholder);
                         }
                     }
                     if (e.type == 'drop') {
