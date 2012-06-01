@@ -9,10 +9,19 @@
     var dragging, placeholder;
     $.extend($.fn, {
         sortable: function (options) {
+            var method = String(options);
             options = $.extend({
                 connectWith: false
             }, options);
             return this.each(function () {
+                if (/^enable|disable|destroy$/.test(method)) {
+                    var items = $(this).children($(this).data('items')).attr('draggable', method == 'enable');
+                    if (method == 'destroy') {
+                        items.add(this).removeData('connectWith items')
+    				.off('dragstart dragend selectstart dragover dragenter drop');
+                    }
+                    return;
+                }
                 var isHandle, index;
                 var items = $(this).children(options.items).attr('draggable', 'true');
                 placeholder = $('<' + items[0].tagName + ' class="sortable-placeholder">');
