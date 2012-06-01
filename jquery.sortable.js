@@ -13,7 +13,7 @@
       options = $.extend({
         items: '*',
         handle: '*',
-        placeholder: '',
+        placeholder: 'sortable-placeholder',
         connectWith: false,
         start: function (event, ui) {},
         update: function (event, ui) {}
@@ -53,6 +53,7 @@
             placeholder: placeholder
           });
         }).on('dragend', options.items, function (e) {
+          placeholder.after(dragging);
           dragging.show();
           placeholder.remove();
           dragging.css({
@@ -77,9 +78,8 @@
               $(e.currentTarget)[placeholder.index() < $(e.currentTarget).index() ? 'after' : 'before'](placeholder);
             }
           }
-          if (e.type == 'drop') {
-            e.stopPropagation();
-            placeholder.after(dragging);
+          if (e.type === 'drop') {
+            e.preventDefault();
           }
           return false;
         });
