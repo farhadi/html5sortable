@@ -65,7 +65,7 @@ $.fn.sortable = function(options) {
 			e.originalEvent.dataTransfer.dropEffect = 'move';
 			if (items.is(this)) {
 				if (options.forcePlaceholderSize) {
-					placeholder.height(dragging.height());
+					placeholder.height(dragging.outerHeight());
 				}
 				dragging.hide();
 				$(this)[placeholder.index() < $(this).index() ? 'after' : 'before'](placeholder);
