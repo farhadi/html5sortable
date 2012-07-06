@@ -10,7 +10,8 @@ var dragging, placeholders = $();
 $.fn.sortable = function(options) {
 	var method = String(options);
 	options = $.extend({
-		connectWith: false
+		connectWith: false,
+    fadeInDroppedItem: true
 	}, options);
 	return this.each(function() {
 		if (/^enable|disable|destroy$/.test(method)) {
@@ -43,7 +44,13 @@ $.fn.sortable = function(options) {
 			dt.setData('Text', 'dummy');
 			index = (dragging = $(this)).addClass('sortable-dragging').index();
 		}).on('dragend.h5s', function() {
-			dragging.removeClass('sortable-dragging').fadeIn();
+			dragging.removeClass('sortable-dragging');
+      if (options.fadeInDroppedItem) {
+        dragging.fadeIn();
+      }
+      else {
+        dragging.show();
+      }
 			placeholders.detach();
 			if (index != dragging.index()) {
 				items.parent().trigger('sortupdate', {item: dragging});
