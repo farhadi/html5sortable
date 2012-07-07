@@ -10,7 +10,8 @@ var dragging, placeholders = $();
 $.fn.sortable = function(options) {
 	var method = String(options);
 	options = $.extend({
-		connectWith: false
+		connectWith: false,
+    fadeInDroppedItem: true
 	}, options);
 	return this.each(function() {
 		if (/^enable|disable|destroy$/.test(method)) {
@@ -22,7 +23,10 @@ $.fn.sortable = function(options) {
 			return;
 		}
 		var isHandle, index, items = $(this).children(options.items);
-		var placeholder = $('<' + items[0].tagName + ' class="sortable-placeholder">');
+		var placeholder = $('<div class="sortable-placeholder">');
+    if (items[0] && items[0].tagName) {
+      placeholder = $('<' + items[0].tagName + ' class="sortable-placeholder">');
+    }
 		items.find(options.handle).mousedown(function() {
 			isHandle = true;
 		}).mouseup(function() {
@@ -43,7 +47,13 @@ $.fn.sortable = function(options) {
 			dt.setData('Text', 'dummy');
 			index = (dragging = $(this)).addClass('sortable-dragging').index();
 		}).on('dragend.h5s', function() {
-			dragging.removeClass('sortable-dragging').fadeIn();
+			dragging.removeClass('sortable-dragging');
+      if (options.fadeInDroppedItem) {
+        dragging.fadeIn();
+      }
+      else {
+        dragging.show();
+      }
 			placeholders.detach();
 			if (index != dragging.index()) {
 				items.parent().trigger('sortupdate', {item: dragging});
@@ -65,7 +75,7 @@ $.fn.sortable = function(options) {
 			e.originalEvent.dataTransfer.dropEffect = 'move';
 			if (items.is(this)) {
 				if (options.forcePlaceholderSize) {
-					placeholder.height(dragging.height());
+					placeholder.height(dragging.outerHeight());
 				}
 				dragging.hide();
 				$(this)[placeholder.index() < $(this).index() ? 'after' : 'before'](placeholder);
