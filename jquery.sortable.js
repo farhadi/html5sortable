@@ -23,7 +23,10 @@ $.fn.sortable = function(options) {
 			return;
 		}
 		var isHandle, index, items = $(this).children(options.items);
-		var placeholder = $('<' + items[0].tagName + ' class="sortable-placeholder">');
+		var placeholder = $('<div class="sortable-placeholder">');
+    if (items[0] && items[0].tagName) {
+      placeholder = $('<' + items[0].tagName + ' class="sortable-placeholder">');
+    }
 		items.find(options.handle).mousedown(function() {
 			isHandle = true;
 		}).mouseup(function() {
