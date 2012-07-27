@@ -70,6 +70,9 @@ $.fn.sortable = function(options) {
 				dragging.hide();
 				$(this)[placeholder.index() < $(this).index() ? 'after' : 'before'](placeholder);
 				placeholders.not(placeholder).detach();
+			} else if (!placeholders.is(this) && !$(this).children(options.items).length) {
+				placeholders.detach();
+				$(this).append(placeholder);
 			}
 			return false;
 		});
