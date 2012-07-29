@@ -43,10 +43,13 @@ $.fn.sortable = function(options) {
 			dt.setData('Text', 'dummy');
 			index = (dragging = $(this)).addClass('sortable-dragging').index();
 		}).on('dragend.h5s', function() {
+			if (!dragging) {
+				return;
+			}
 			dragging.removeClass('sortable-dragging').show();
 			placeholders.detach();
 			if (index != dragging.index()) {
-				items.parent().trigger('sortupdate', {item: dragging});
+				dragging.parent().trigger('sortupdate', {item: dragging});
 			}
 			dragging = null;
 		}).not('a[href], img').on('selectstart.h5s', function() {
@@ -59,6 +62,7 @@ $.fn.sortable = function(options) {
 			if (e.type == 'drop') {
 				e.stopPropagation();
 				placeholders.filter(':visible').after(dragging);
+				dragging.trigger('dragend.h5s');
 				return false;
 			}
 			e.preventDefault();
