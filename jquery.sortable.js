@@ -35,13 +35,14 @@ $.fn.sortable = function(options) {
 		}
 		items.attr('draggable', 'true').on('dragstart.h5s', function(e) {
 			if (options.handle && !isHandle) {
-				return;
+				return false;
 			}
 			isHandle = false;
 			var dt = e.originalEvent.dataTransfer;
 			dt.effectAllowed = 'move';
 			dt.setData('Text', 'dummy');
 			index = (dragging = $(this)).addClass('sortable-dragging').index();
+			e.stopPropagation();
 		}).on('dragend.h5s', function() {
 			if (!dragging) {
 				return;
