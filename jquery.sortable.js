@@ -16,6 +16,7 @@ $.fn.sortable = function(options) {
 		if (/^enable|disable|destroy$/.test(method)) {
 			var items = $(this).children($(this).data('items')).attr('draggable', method == 'enable');
 			if (method == 'destroy') {
+				$(this).off('sortupdate');
 				items.add(this).removeData('connectWith items')
 					.off('dragstart.h5s dragend.h5s selectstart.h5s dragover.h5s dragenter.h5s drop.h5s');
 			}
