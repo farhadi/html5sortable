@@ -1,7 +1,7 @@
 /*
  * HTML5 Sortable jQuery Plugin
  * http://farhadi.ir/projects/html5sortable
- * 
+ *
  * Copyright 2012, Ali Farhadi
  * Released under the MIT license.
  */
@@ -16,13 +16,16 @@ $.fn.sortable = function(options) {
 		if (/^enable|disable|destroy$/.test(method)) {
 			var items = $(this).children($(this).data('items')).attr('draggable', method == 'enable');
 			if (method == 'destroy') {
+					// see https://github.com/flying-sheep/html5sortable/commit/fa041e7ea7f4e0cb252033a018f8c75f25352933
+				$(this).off('sortupdate');
 				items.add(this).removeData('connectWith items')
 					.off('dragstart.h5s dragend.h5s selectstart.h5s dragover.h5s dragenter.h5s drop.h5s');
 			}
 			return;
 		}
 		var isHandle, index, items = $(this).children(options.items);
-		var placeholder = options.placeholder ? $( options.placeholder) : $('<' + (/^ul|ol$/i.test(this.tagName) ? 'li' : 'div') + '>').addClass( 'sortable-placeholder');
+		var placeholder = options.placeholder ? $( options.placeholder) : $('<' + (/^ul|ol$/i.test(this.tagName) ? 'li' : 'div') + '>');
+		placeholder.addClass( 'sortable-placeholder');
 		items.find(options.handle).mousedown(function() {
 			isHandle = true;
 		}).mouseup(function() {
@@ -49,7 +52,9 @@ $.fn.sortable = function(options) {
 			dragging.removeClass('sortable-dragging').show();
 			placeholders.detach();
 			if (index != dragging.index()) {
-				dragging.parent().trigger('sortupdate', {item: dragging});
+					// see https://github.com/flying-sheep/html5sortable/commit/6853f32e9912c2af2a13b36a612d15bce24fb628
+				dragging.parent().trigger('sortupdate', {item: dragging, oldindex: index});
+				//dragging.parent().trigger('sortupdate', {item: dragging});
 			}
 			dragging = null;
 		}).not('a[href], img').on('selectstart.h5s', function() {
