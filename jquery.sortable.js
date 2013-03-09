@@ -10,7 +10,8 @@ var dragging, placeholders = $();
 $.fn.sortable = function(options) {
 	var method = String(options);
 	options = $.extend({
-		connectWith: false
+		connectWith: false ,
+		placeholder: null
 	}, options);
 	return this.each(function() {
 		if (/^enable|disable|destroy$/.test(method)) {
@@ -22,7 +23,9 @@ $.fn.sortable = function(options) {
 			return;
 		}
 		var isHandle, index, items = $(this).children(options.items);
-		var placeholder = $('<' + (/^ul|ol$/i.test(this.tagName) ? 'li' : 'div') + ' class="sortable-placeholder">');
+		var placeholder = ( options.placeholder == null )
+				? $('<' + (/^ul|ol$/i.test(this.tagName) ? 'li' : 'div') + ' class="sortable-placeholder">')
+				: $( options.placeholder ).addClass('sortable-placeholder');
 		items.find(options.handle).mousedown(function() {
 			isHandle = true;
 		}).mouseup(function() {
