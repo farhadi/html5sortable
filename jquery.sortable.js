@@ -43,6 +43,7 @@ $.fn.sortable = function(options) {
 			dt.setData('Text', 'dummy');
 			index = (dragging = $(this)).addClass('sortable-dragging').index();
 			parent = dragging.parent();
+			e.stopPropagation();
 		}).on('dragend.h5s', function() {
 			if (!dragging) {
 				return;
