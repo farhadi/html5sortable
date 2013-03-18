@@ -14,7 +14,8 @@ $.fn.sortable = function(options) {
 	}, options);
 	return this.each(function() {
 		if (/^enable|disable|destroy$/.test(method)) {
-			var items = $(this).children($(this).data('items')).attr('draggable', method == 'enable');
+			var items = $(this).children($(this).data('items'));
+			var handles = $(this).children($(this).data('handles')).attr('draggable', method == 'enable');
 			if (method == 'destroy') {
 				items.add(this).removeData('connectWith items')
 					.off('dragstart.h5s dragend.h5s dragover.h5s dragenter.h5s drop.h5s');
@@ -26,6 +27,7 @@ $.fn.sortable = function(options) {
 		var parent;
 		var placeholder = $('<' + (/^ul|ol$/i.test(this.tagName) ? 'li' : 'div') + ' class="sortable-placeholder">');
 		$(this).data('items', options.items)
+		$(this).data('handles', options.handle ? options.handle : options.items)
 		placeholders = placeholders.add(placeholder);
 		if (options.connectWith) {
 			$(options.connectWith).add(this).data('connectWith', options.connectWith);
