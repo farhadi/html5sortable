@@ -7,6 +7,7 @@
  */
 (function($) {
 var dragging, placeholders = $();
+var use_visible = $.fn.jquery.indexOf('-sizzle') === -1;
 $.fn.sortable = function(options) {
 	var method = String(options);
 	options = $.extend({
@@ -23,9 +24,9 @@ $.fn.sortable = function(options) {
 		}
 		var isHandle, index, items = $(this).children(options.items);
 		var placeholder = $('<' + (/^ul|ol$/i.test(this.tagName) ? 'li' : 'div') + ' class="sortable-placeholder">');
-		items.find(options.handle).mousedown(function() {
+		items.find(options.handle).on('mousedown', function() {
 			isHandle = true;
-		}).mouseup(function() {
+		}).on('mouseup', function() {
 			isHandle = false;
 		});
 		$(this).data('items', options.items)
@@ -61,7 +62,7 @@ $.fn.sortable = function(options) {
 			}
 			if (e.type == 'drop') {
 				e.stopPropagation();
-				placeholders.filter(':visible').after(dragging);
+				(use_visible ? placeholders.filter(':visible') : placeholders).after(dragging);
 				dragging.trigger('dragend.h5s');
 				return false;
 			}
