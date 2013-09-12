@@ -5,6 +5,11 @@ This is a fork of the original html5sortable project with various patches added 
 
 **[Demos & Documentation](http://farhadi.ir/projects/html5sortable)**
 
+Patches
+-------
+
+* [Add reload method](https://github.com/farhadi/html5sortable/pull/61)
+
 Features
 --------
 * Less than 1KB (minified and gzipped).
