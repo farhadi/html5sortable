@@ -10,6 +10,7 @@ Patches
 
 * [Add reload method](https://github.com/farhadi/html5sortable/pull/61)
 * [Custom markup for placeholder](https://github.com/farhadi/html5sortable/pull/33)
+* [Add oldindex property to sortupdate event data](https://github.com/farhadi/html5sortable/pull/27)
 
 Features
 --------
@@ -33,6 +34,7 @@ Use `sortupdate` event if you want to do something when the order changes (e.g. 
 ``` javascript
 $('.sortable').sortable().bind('sortupdate', function(e, ui) {
     //ui.item contains the current dragged element.
+    //ui.oldindex contains the old index of the element
     //Triggered when the user stopped sorting and the DOM position has changed.
 });
 ```
