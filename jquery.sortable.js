@@ -20,6 +20,7 @@ $.fn.sortable = function(options) {
 		if (/^enable|disable|destroy$/.test(method)) {
 			var items = $(this).children($(this).data('items')).attr('draggable', method == 'enable');
 			if (method == 'destroy') {
+				$(this).off('sortupdate');
 				items.add(this).removeData('connectWith items')
 					.off('dragstart.h5s dragend.h5s selectstart.h5s dragover.h5s dragenter.h5s drop.h5s');
 			}
@@ -55,7 +56,7 @@ $.fn.sortable = function(options) {
 			dragging.removeClass('sortable-dragging').show();
 			placeholders.detach();
 			if (index != dragging.index()) {
-				dragging.parent().trigger('sortupdate', {item: dragging});
+				dragging.parent().trigger('sortupdate', {item: dragging, oldindex: index});
 			}
 			dragging = null;
 		}).not('a[href], img').on('selectstart.h5s', function() {
