@@ -9,6 +9,7 @@ Patches
 -------
 
 * [Add reload method](https://github.com/farhadi/html5sortable/pull/61)
+* [Custom markup for placeholder](https://github.com/farhadi/html5sortable/pull/33)
 
 Features
 --------
@@ -63,6 +64,15 @@ Use `connectWith` option to create connected lists:
 ``` javascript
 $('#sortable1, #sortable2').sortable({
     connectWith: '.connected'
+});
+```
+
+Use `placeholder` option to specify the markup of the placeholder:
+
+``` javascript
+$('.sortable').sortable({  
+	items: 'tr' ,
+	placeholder : '<tr><td colspan="7">&nbsp;</td></tr>'
 });
 ```
 
