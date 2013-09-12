@@ -84,6 +84,12 @@ To enable a disabled sortable:
 $('.sortable').sortable('enable');
 ```
 
+To reload a sortable:
+
+``` javascript
+$('.sortable').sortable('reload');
+```
+
 The API is compatible with jquery-ui. So you can use jquery-ui as a polyfill in older browsers:
 
 ``` javascript
