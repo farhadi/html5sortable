@@ -1,9 +1,7 @@
 HTML5 Sortable jQuery Plugin
 ============================
 
-This is a fork of the original html5sortable project with various patches added from the community. 
-
-The original project seems to be dead with no activity for more than a year and lots of issues and pull requests. I needed to keep track of all the changes in the library so I created this project.
+This is a fork of the original html5sortable project with various patches added from the community.
 
 **[Demos & Documentation](http://farhadi.ir/projects/html5sortable)**
 
@@ -14,6 +12,7 @@ Differences from the original version
 * [Custom markup for placeholder](https://github.com/farhadi/html5sortable/pull/33)
 * [Add oldindex property to sortupdate event data](https://github.com/farhadi/html5sortable/pull/27)
 * [Support list items of variable height](https://github.com/farhadi/html5sortable/pull/56)
+* [Improved handling of handles such that sub elements can be interacted with](https://github.com/farhadi/html5sortable/pull/67)
 * AngularJS directive.
 * Fix for reload method causing options to be reset to defaults.
 
