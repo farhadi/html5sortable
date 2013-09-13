@@ -11,6 +11,7 @@ Differences from the original version
 * [Add reload method](https://github.com/farhadi/html5sortable/pull/61)
 * [Custom markup for placeholder](https://github.com/farhadi/html5sortable/pull/33)
 * [Add oldindex property to sortupdate event data](https://github.com/farhadi/html5sortable/pull/27)
+* [Support list items of variable height](https://github.com/farhadi/html5sortable/pull/56)
 * AngularJS directive.
 * Fix for reload method causing options to be reset to defaults.
 
