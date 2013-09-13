@@ -60,13 +60,15 @@ $.fn.sortable = function(options) {
       dt.effectAllowed = 'move';
       dt.setData('Text', 'dummy');
       index = (dragging = $(this)).addClass('sortable-dragging').index();
+      start_parent = $(this).parent();
     }).on('dragend.h5s', function() {
       if (!dragging) {
         return;
       }
       dragging.removeClass('sortable-dragging').show();
       placeholders.detach();
-      if (index != dragging.index()) {
+      new_parent = $(this).parent();
+      if (index != dragging.index() || start_parent != new_parent) {
         dragging.parent().trigger('sortupdate', {item: dragging, oldindex: index});
       }
       dragging = null;

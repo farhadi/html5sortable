@@ -13,6 +13,7 @@ Differences from the original version
 * [Add oldindex property to sortupdate event data](https://github.com/farhadi/html5sortable/pull/27)
 * [Support list items of variable height](https://github.com/farhadi/html5sortable/pull/56)
 * [Improved handling of handles such that sub elements can be interacted with](https://github.com/farhadi/html5sortable/pull/67)
+* [Fix false negative bug when dropping onto same index in new container.](https://github.com/farhadi/html5sortable/pull/66)
 * AngularJS directive.
 * Fix for reload method causing options to be reset to defaults.
 
