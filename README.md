@@ -153,6 +153,7 @@ Contributors:
 * [ssafejava](http://github.com/ssafejava) 
 * [andyburke](http://github.com/andyburke) 
 * [daemianmack](http://github.com/daemianmack)
+* [OscarGodson](http://github.com/OscarGodson)
 
 License
 -------
