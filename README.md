@@ -139,6 +139,21 @@ yepnope({
 });
 ```
 
+
+Authors
+-------
+
+Original code by Ali Farhadi. This version is mantained by [Alexandru Badiu](http://ctrlz.ro).
+
+Contributors:
+
+* [rodolfospalenza](http://github.com/rodolfospalenza) 
+* [bistoco](http://github.com/bistoco) 
+* [flying-sheep](http://github.com/flying-sheep) 
+* [ssafejava](http://github.com/ssafejava) 
+* [andyburke](http://github.com/andyburke) 
+* [daemianmack](http://github.com/daemianmack)
+
 License
 -------
 Released under the MIT license.
