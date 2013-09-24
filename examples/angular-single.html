@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html ng-app="Directives">
+  <head>
+    <title>Angular example with a single list</title>
+    <link href="http://thomasf.github.io/solarized-css/solarized-light.min.css" rel="stylesheet"></link>
+  </head>
+  <body>
+    <div ng-controller="MainCtrl">
+      <h1>Angular example with a single list</h1>
+      
+      <h2>How to use</h2>
+      
+      <p>Use the html-sortable on the container that has the sortable elements:</p>
+      <pre>
+        &lt;ul html-sortable=&quot;{ ... }&quot; ng-model=&#x27;data1&#x27;&gt;...&lt;/ul&gt;
+      </pre>
+      <p></p>
+      
+      <h2>Example</h2>
+      <div>
+        <ul html-sortable="" ng-model='data1'>
+          <li ng-repeat="itm in data1">
+            {{itm}}
+          </li>
+        </ul>    
+      </div>
+  
+      <p><strong>Model 1:</strong></p>
+      <pre>{{ data1 }}</pre>
+    </div>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+    <script src="../jquery.sortable.js"></script>
+    <script src="angular-single.js"></script>
+    <script src="../angular/htmlSortable.js"></script>
+  </body>
+</html>
