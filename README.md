@@ -38,10 +38,17 @@ Use `sortupdate` event if you want to do something when the order changes (e.g. 
 
 ``` javascript
 $('.sortable').sortable().bind('sortupdate', function(e, ui) {
-    //ui.item contains the current dragged element.
-    //ui.item.index() contains the new index of the dragged element
-    //ui.oldindex contains the old index of the dragged element
-    //Triggered when the user stopped sorting and the DOM position has changed.
+    /*
+    
+    This event is triggered when the user stopped sorting and the DOM position has changed.
+
+    ui.item contains the current dragged element.
+    ui.item.index() contains the new index of the dragged element
+    ui.oldindex contains the old index of the dragged element
+    ui.startparent contains the element that the dragged item comes from
+    ui.endparent contains the element that the dragged item was added to
+    
+    */
 });
 ```
 
