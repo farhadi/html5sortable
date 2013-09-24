@@ -11,7 +11,7 @@ $.fn.sortable = function(options) {
   var method = String(options);
 
   options = $.extend({
-    connectWith: false ,
+    connectWith: false,
     placeholder: null
   }, options);
 
@@ -69,7 +69,7 @@ $.fn.sortable = function(options) {
       placeholders.detach();
       new_parent = $(this).parent();
       if (index != dragging.index() || start_parent != new_parent) {
-        dragging.parent().trigger('sortupdate', {item: dragging, oldindex: index});
+        dragging.parent().trigger('sortupdate', {item: dragging, oldindex: index, startparent: start_parent, endparent: new_parent});
       }
       dragging = null;
     }).not('a[href], img').on('selectstart.h5s', function() {
