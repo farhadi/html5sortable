@@ -19,13 +19,22 @@ app.directive('htmlSortable', [
         $(element).sortable(opts);
         if (model) {
           $(element).sortable().bind('sortupdate', function(e, data) {
+            var $source = data.startparent.attr('ng-model');
+            var $dest   = data.endparent.attr('ng-model');
+
             var $start = data.oldindex;
             var $end   = data.item.index();
           
             scope.$apply(function () {
-              ngModel.$modelValue.splice($end, 0, ngModel.$modelValue.splice($start, 1)[0]);            
+              if ($source == $dest) {
+                scope[model].splice($end, 0, scope[model].splice($start, 1)[0]);
+              }
+              else {
+                var $item = scope[$source][$start];
 
-              scope[model] = ngModel.$modelValue;
+                scope[$source].splice($start, 1);
+                scope[$dest].splice($end, 0, $item);
+              }
             });
           });
         }
