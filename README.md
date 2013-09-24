@@ -3,7 +3,12 @@ HTML5 Sortable jQuery Plugin
 
 This is a fork of the original html5sortable project with various patches added from the community.
 
-**[Demos & Documentation](http://farhadi.ir/projects/html5sortable)**
+Examples
+-------
+
+* [Examples](http://htmlpreview.github.io/?https://github.com/voidberg/html5sortable/blob/master/examples/examples.html)
+* [AngularJS with a single list](http://htmlpreview.github.io/?https://github.com/voidberg/html5sortable/blob/master/examples/angular-single.html)
+* [AngularJS with connected lists](http://htmlpreview.github.io/?https://github.com/voidberg/html5sortable/blob/master/examples/angular-connected.html)
 
 Differences from the original version
 -------
@@ -24,9 +29,13 @@ Features
 * Supports both list and grid style layouts.
 * Similar API and behaviour to jquery-ui sortable plugin.
 * Works in IE 5.5+, Firefox 3.5+, Chrome 3+, Safari 3+ and, Opera 12+.
+* Comes with an AngularJS directive.
 
 Usage
 -----
+
+To use it with AngularJS please see the examples.
+
 Use `sortable` method to create a sortable list:
 
 ``` javascript
