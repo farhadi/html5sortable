@@ -1,8 +1,12 @@
 /*
  * HTML5 Sortable jQuery Plugin
- * http://farhadi.ir/projects/html5sortable
+ * https://github.com/voidberg/html5sortable
  *
- * Copyright 2012, Ali Farhadi
+ * Original code copyright 2012 Ali Farhadi.
+ * This version is mantained by Alexandru Badiu <andu@ctrlz.ro>
+ *
+ * Thanks to the following contributors: rodolfospalenza, bistoco, flying-sheep, ssafejava, andyburke, daemianmack.
+ *
  * Released under the MIT license.
  */
 (function($) {

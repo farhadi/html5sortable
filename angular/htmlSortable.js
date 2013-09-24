@@ -1,3 +1,11 @@
+/*
+ * AngularJS integration with the HTML5 Sortable jQuery Plugin
+ * https://github.com/voidberg/html5sortable
+ *
+ * Copyright 2013, Alexandru Badiu <andu@ctrlz.ro>
+ *
+ * Released under the MIT license.
+ */
 app.directive('htmlSortable', [
   '$timeout', function($timeout) {
     return {
