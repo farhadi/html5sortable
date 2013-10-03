@@ -21,6 +21,12 @@ app.directive('htmlSortable', [
               element.sortable('reload');
             }, 50);
           };
+          
+          scope.$watch(model, function() {
+            $timeout(function () {
+              element.sortable('reload');
+            }, 50);
+          }, true);
         }
 
         // Create sortable
