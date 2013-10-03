@@ -51,8 +51,8 @@ $.fn.sortable = function(options) {
 			if (index != dragging.index()) {
 				dragging.parent().trigger('sortupdate', {
 					item: dragging,
-					newIndex: index,
-					oldIndex: dragging.index()
+					oldIndex: index,
+					newIndex: dragging.index()
 				});
 			}
 			dragging = null;
