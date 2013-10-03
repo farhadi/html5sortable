@@ -154,6 +154,7 @@ Contributors:
 * [andyburke](http://github.com/andyburke) 
 * [daemianmack](http://github.com/daemianmack)
 * [OscarGodson](http://github.com/OscarGodson)
+* [Parikshit N. Samant](https://github.com/samantp)
 
 License
 -------

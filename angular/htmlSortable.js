@@ -4,6 +4,8 @@
  *
  * Copyright 2013, Alexandru Badiu <andu@ctrlz.ro>
  *
+ * Thanks to the following contributors: samantp.
+ *
  * Released under the MIT license.
  */
 app.directive('htmlSortable', [
