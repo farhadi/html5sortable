@@ -23,15 +23,15 @@ $.fn.sortable = function(options) {
 		}
 		var isHandle, index, items = $(this).children(options.items);
 		var placeholder = $('<' + (/^ul|ol$/i.test(this.tagName) ? 'li' : 'div') + ' class="sortable-placeholder">');
-		if (options.placeholderChild) {
-			placeholder.append(options.placeholderChild);
+		if (options.placeholderContents) {
+			placeholder.append(options.placeholderContents);
 		}
 		items.find(options.handle).mousedown(function() {
 			isHandle = true;
 		}).mouseup(function() {
 			isHandle = false;
 		});
-		$(this).data('items', options.items)
+		$(this).data('items', options.items);
 		placeholders = placeholders.add(placeholder);
 		if (options.connectWith) {
 			$(options.connectWith).add(this).data('connectWith', options.connectWith);
