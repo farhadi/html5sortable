@@ -47,6 +47,13 @@ $.fn.sortable = function(options) {
 			if (options.handle && !isHandle) {
 				return false;
 			}
+			
+			// set placeholders
+			var content = $(this).html();
+			placeholders.each(function(i, placeholder) {
+				$(placeholder).css('opacity', 0.5).css('filter', 'alpha(opacity=50)').html(content);
+			});
+				
 			isHandle = false;
 			var dt = e.originalEvent.dataTransfer;
 			dt.effectAllowed = 'move';
