@@ -22,7 +22,17 @@ $.fn.sortable = function(options) {
 			return;
 		}
 		var isHandle, index, items = $(this).children(options.items);
-		var placeholder = $('<' + (/^ul|ol$/i.test(this.tagName) ? 'li' : 'div') + ' class="sortable-placeholder">');
+		var tag_placeholder;
+		if(/^ul|ol$/i.test(this.tagName)) {
+			tag_placeholder = 'li';
+		}
+		else if(/^tbody$/i.test(this.tagName)) {
+			tag_placeholder = 'tr';
+		}
+		else {
+			tag_placeholder = 'div';
+		}
+		var placeholder = $('<' + tag_placeholder + ' class="sortable-placeholder">');
 		items.find(options.handle).mousedown(function() {
 			isHandle = true;
 		}).mouseup(function() {
