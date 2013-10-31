@@ -20,15 +20,6 @@ $.fn.sortable = function(options) {
   }, options);
 
   return this.each(function() {
-    var soptions = $(this).data('opts');
-
-    if (typeof soptions == 'undefined') {
-      $(this).data('opts', options);
-    }
-    else {
-      options = soptions;
-    }
-
     if (method == "reload") {
       $(this).children(options.items).off('dragstart.h5s dragend.h5s selectstart.h5s dragover.h5s dragenter.h5s drop.h5s');
     }
@@ -41,6 +32,16 @@ $.fn.sortable = function(options) {
       }
       return;
     }
+
+    var soptions = $(this).data('opts');
+
+    if (typeof soptions == 'undefined') {
+      $(this).data('opts', options);
+    }
+    else {
+      options = soptions;
+    }
+
     var isHandle, index, items = $(this).children(options.items);
     var placeholder = ( options.placeholder == null )
       ? $('<' + (/^ul|ol$/i.test(this.tagName) ? 'li' : 'div') + ' class="sortable-placeholder">')
