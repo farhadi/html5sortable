@@ -74,6 +74,28 @@
 			border: 1px dashed #CCC;
 			background: none;
 		}
+		#table {
+			width: 450px;
+			margin: auto;
+			border: none;
+		}
+		#table tr {
+			background: #F6F6F6;
+			font-family: "Tahoma";
+			color: #1C94C4;
+		}
+		#table td, #table th {
+			margin: 5px;
+			padding: 5px;
+			height: 22px;
+			width: 150px;
+			border: 1px solid #CCC;
+		}
+
+		#table tr.sortable-placeholder td{
+			border: 1px dashed #CCC;
+			background: #FEFEFE;
+		}
 	</style>
 	<link href='http://fonts.googleapis.com/css?family=Droid+Serif' rel='stylesheet' type='text/css'>
 </head>
@@ -155,6 +177,48 @@
 			<li class="highlight">Item 6</li>
 		</ul>
 	</section>
+	<section id="table">
+		<h2>Sortable Table Rows</h2>
+		<table>
+			<thead>
+				<th>Header 1</th>
+				<th>Header 2</th>
+				<th>Header 3</th>
+			</thead>
+			<tbody class="table">
+				<tr>
+					<td>Row 1</td>
+					<td>Row 1</td>
+					<td>Row 1</td>
+				</tr>
+				<tr>
+					<td>Row 2</td>
+					<td>Row 2</td>
+					<td>Row 2</td>
+				</tr>
+				<tr>
+					<td>Row 3</td>
+					<td>Row 3</td>
+					<td>Row 3</td>
+				</tr>
+				<tr>
+					<td>Row 4</td>
+					<td>Row 4</td>
+					<td>Row 4</td>
+				</tr>
+				<tr>
+					<td>Row 5</td>
+					<td>Row 5</td>
+					<td>Row 5</td>
+				</tr>
+				<tr>
+					<td>Row 6</td>
+					<td>Row 6</td>
+					<td>Row 6</td>
+				</tr>
+			</tbody>
+		</table>
+	</section>
 	<a href="http://github.com/farhadi/html5sortable"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://a248.e.akamai.net/assets.github.com/img/edc6dae7a1079163caf7f17c60495bbb6d027c93/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub"></a>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 	<script src="jquery.sortable.js"></script>
@@ -169,6 +233,9 @@
 			});
 			$('.exclude').sortable({
 				items: ':not(.disabled)'
+			});
+			$('.table').sortable({
+				colspan: '3'
 			});
 		});
 	</script>

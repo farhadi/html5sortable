@@ -77,6 +77,14 @@ To enable a disabled sortable:
 $('.sortable').sortable('enable');
 ```
 
+To add the colspan for the td in a table row:
+
+``` javascript
+$('.sortable').sortable({
+    colspan: '3'
+});
+```
+
 The API is compatible with jquery-ui. So you can use jquery-ui as a polyfill in older browsers:
 
 ``` javascript
