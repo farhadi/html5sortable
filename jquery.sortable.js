@@ -1,9 +1,9 @@
+/*jsl:ignore*/
 /*
- * HTML5 Sortable jQuery Plugin
- * http://farhadi.ir/projects/html5sortable
+ * HTML5 Sortable jQuery Plugin with table support
+ * http://github.com/geoffoliver/html5sortable
  * 
- * Copyright 2012, Ali Farhadi
- * Released under the MIT license.
+ * Fork of http://farhadi.ir/projects/html5sortable
  */
 (function($) {
 var dragging, placeholders = $();
@@ -22,7 +22,11 @@ $.fn.sortable = function(options) {
 			return;
 		}
 		var isHandle, index, items = $(this).children(options.items);
-		var placeholder = $('<' + (/^ul|ol$/i.test(this.tagName) ? 'li' : 'div') + ' class="sortable-placeholder">');
+		var placeholder = $('<' + (/^ul|ol$/i.test(this.tagName) ? 'li' : ( (/^table|tbody$/i).test(this.tagName) ? 'tr' : 'div')) + ' class="sortable-placeholder">');
+		if(placeholder.prop('tagName') === 'TR'){
+			var tColCount = $(this).find('td').length;
+			placeholder.html('<td colspan="'+tColCount+'"></td>');
+		}
 		items.find(options.handle).mousedown(function() {
 			isHandle = true;
 		}).mouseup(function() {
@@ -83,3 +87,4 @@ $.fn.sortable = function(options) {
 	});
 };
 })(jQuery);
+/*jsl:end*/
