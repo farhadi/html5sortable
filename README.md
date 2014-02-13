@@ -3,6 +3,10 @@ HTML5 Sortable jQuery Plugin
 
 **[Demos & Documentation](http://farhadi.ir/projects/html5sortable)**
 
+Changelog
+--------
+* 2013/1/30 - Added support for drag/drop table rows
+
 Features
 --------
 * Less than 1KB (minified and gzipped).
