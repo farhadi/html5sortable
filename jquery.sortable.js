@@ -22,6 +22,7 @@ $.fn.sortable = function(options) {
 			return;
 		}
 		var isHandle, index, items = $(this).children(options.items);
+		var parent = $(this);
 		var placeholder = $('<' + (/^ul|ol$/i.test(this.tagName) ? 'li' : 'div') + ' class="sortable-placeholder">');
 		items.find(options.handle).mousedown(function() {
 			isHandle = true;
@@ -48,7 +49,7 @@ $.fn.sortable = function(options) {
 			}
 			dragging.removeClass('sortable-dragging').show();
 			placeholders.detach();
-			if (index != dragging.index()) {
+			if (index != dragging.index() || (!dragging.parent().is(parent))) {
 				dragging.parent().trigger('sortupdate', {item: dragging});
 			}
 			dragging = null;
