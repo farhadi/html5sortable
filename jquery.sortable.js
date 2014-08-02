@@ -23,17 +23,24 @@ $.fn.sortable = function(options) {
 		}
 		var isHandle, index, items = $(this).children(options.items);
 		var placeholder = $('<' + (/^ul|ol$/i.test(this.tagName) ? 'li' : 'div') + ' class="sortable-placeholder">');
-		items.find(options.handle).mousedown(function() {
-			isHandle = true;
-		}).mouseup(function() {
-			isHandle = false;
-		});
+		
+		if (options.handle) {
+			$(this).on('mousedown', options.handle, function() {
+				isHandle = true;
+			}).on('mouseup', options.handle, function() {
+				isHandle = false;
+			});
+		}
 		$(this).data('items', options.items)
 		placeholders = placeholders.add(placeholder);
 		if (options.connectWith) {
 			$(options.connectWith).add(this).data('connectWith', options.connectWith);
 		}
-		items.attr('draggable', 'true').on('dragstart.h5s', function(e) {
+		items.attr('draggable', 'true');
+		
+		var itemsSel = options.items || ':nth-child(n)';
+		
+		$(this).on('dragstart.h5s', itemsSel, function(e) {
 			if (options.handle && !isHandle) {
 				return false;
 			}
@@ -42,20 +49,23 @@ $.fn.sortable = function(options) {
 			dt.effectAllowed = 'move';
 			dt.setData('Text', 'dummy');
 			index = (dragging = $(this)).addClass('sortable-dragging').index();
-		}).on('dragend.h5s', function() {
+		}).on('dragend.h5s', itemsSel, function() {
 			if (!dragging) {
 				return;
 			}
+			var items = $(this).parent().find(itemsSel);
 			dragging.removeClass('sortable-dragging').show();
 			placeholders.detach();
 			if (index != dragging.index()) {
 				dragging.parent().trigger('sortupdate', {item: dragging});
 			}
 			dragging = null;
-		}).not('a[href], img').on('selectstart.h5s', function() {
+		}).on('selectstart.h5s', itemsSel + ':not(a[href], img)', function() {
 			this.dragDrop && this.dragDrop();
 			return false;
-		}).end().add([this, placeholder]).on('dragover.h5s dragenter.h5s drop.h5s', function(e) {
+		});
+			
+		function handleDragoverDrop(e) {
 			if (!items.is(dragging) && options.connectWith !== $(dragging).parent().data('connectWith')) {
 				return true;
 			}
@@ -79,7 +89,10 @@ $.fn.sortable = function(options) {
 				$(this).append(placeholder);
 			}
 			return false;
-		});
+		}
+		
+		$(this).add(placeholder).on('dragover.h5s dragenter.h5s drop.h5s', handleDragoverDrop);
+		$(this).on('dragover.h5s dragenter.h5s drop.h5s', itemsSel, handleDragoverDrop);
 	});
-};
+}
 })(jQuery);
