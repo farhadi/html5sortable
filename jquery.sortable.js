@@ -14,48 +14,50 @@ $.fn.sortable = function(options) {
 	}, options);
 	return this.each(function() {
 		if (/^enable|disable|destroy$/.test(method)) {
-			var items = $(this).children($(this).data('items')).attr('draggable', method == 'enable');
+			var items = $(this).children($(this).data('items'));
+			var handles = $(this).children($(this).data('handles')).attr('draggable', method == 'enable');
 			if (method == 'destroy') {
 				items.add(this).removeData('connectWith items')
-					.off('dragstart.h5s dragend.h5s selectstart.h5s dragover.h5s dragenter.h5s drop.h5s');
+					.off('dragstart.h5s dragend.h5s dragover.h5s dragenter.h5s drop.h5s');
+				handles.off('selectstart.h5s');
 			}
 			return;
 		}
-		var isHandle, index, items = $(this).children(options.items);
+		var index, items = $(this).children(options.items), handles = options.handle ? items.find(options.handle) : items;
+		var parent;
 		var placeholder = $('<' + (/^ul|ol$/i.test(this.tagName) ? 'li' : 'div') + ' class="sortable-placeholder">');
-		items.find(options.handle).mousedown(function() {
-			isHandle = true;
-		}).mouseup(function() {
-			isHandle = false;
-		});
 		$(this).data('items', options.items)
+		$(this).data('handles', options.handle ? options.handle : options.items)
 		placeholders = placeholders.add(placeholder);
 		if (options.connectWith) {
 			$(options.connectWith).add(this).data('connectWith', options.connectWith);
 		}
-		items.attr('draggable', 'true').on('dragstart.h5s', function(e) {
-			if (options.handle && !isHandle) {
-				return false;
-			}
-			isHandle = false;
+		// Setup drag handles
+		handles.attr('draggable', 'true').not('a[href], img').on('selectstart.h5s', function() {
+			this.dragDrop && this.dragDrop();
+			return false;
+		}).end();
+		
+		// Handle drag events on draggable items
+		items.on('dragstart.h5s', function(e) {
 			var dt = e.originalEvent.dataTransfer;
 			dt.effectAllowed = 'move';
 			dt.setData('Text', 'dummy');
 			index = (dragging = $(this)).addClass('sortable-dragging').index();
+			parent = dragging.parent();
+			e.stopPropagation();
 		}).on('dragend.h5s', function() {
 			if (!dragging) {
 				return;
 			}
 			dragging.removeClass('sortable-dragging').show();
 			placeholders.detach();
-			if (index != dragging.index()) {
+			if (index != dragging.index() || !parent.is(dragging.parent())) {
 				dragging.parent().trigger('sortupdate', {item: dragging});
 			}
 			dragging = null;
-		}).not('a[href], img').on('selectstart.h5s', function() {
-			this.dragDrop && this.dragDrop();
-			return false;
-		}).end().add([this, placeholder]).on('dragover.h5s dragenter.h5s drop.h5s', function(e) {
+			parent = null;
+		}).add([this, placeholder]).on('dragover.h5s dragenter.h5s drop.h5s', function(e) {
 			if (!items.is(dragging) && options.connectWith !== $(dragging).parent().data('connectWith')) {
 				return true;
 			}
