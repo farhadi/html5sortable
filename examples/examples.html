@@ -2,16 +2,10 @@
 <head>
 	<meta charset="utf-8">
 	<title>HTML5 Sortable jQuery Plugin</title>
+  <link href="http://thomasf.github.io/solarized-css/solarized-light.min.css" rel="stylesheet"></link>
 	<style>
 		header, section {
 			display: block;
-		}
-		body {
-			font-family: 'Droid Serif';
-		}
-		h1, h2 {
-			text-align: center;
-			font-weight: normal;
 		}
 		#features {
 			margin: auto;
@@ -83,16 +77,6 @@
 		<h1>HTML5 Sortable jQuery Plugin</h1>
 	</header>
 	<section>
-		<h2>Features</h2>
-		<ul id="features">
-			<li>Less than 1KB (minified).
-			<li>Built using native HTML5 drag and drop API.</li>
-			<li>Supports both list and grid style layouts.</li>
-			<li>Similar API and behaviour to jquery-ui sortable plugin.</li>
-			<li>Works in IE 5.5+, Firefox 3.5+, Chrome 3+, Safari 3+ and, Opera 12+.</li>
-		</ul>
-	</section>
-	<section>
 		<h2>Sortable List</h2>
 		<ul class="sortable list">
 			<li>Item 1</li>
@@ -136,28 +120,29 @@
 			<li><span>::</span> Item 6</li>
 		</ul>
 	</section>
-	<section id="connected">
+	<section>
 		<h2>Connected Sortable Lists</h2>
-		<ul class="connected list">
-			<li>Item 1</li>
-			<li>Item 2</li>
-			<li>Item 3</li>
-			<li>Item 4</li>
-			<li>Item 5</li>
-			<li>Item 6</li>
-		</ul>
-		<ul class="connected list no2">
-			<li class="highlight">Item 1</li>
-			<li class="highlight">Item 2</li>
-			<li class="highlight">Item 3</li>
-			<li class="highlight">Item 4</li>
-			<li class="highlight">Item 5</li>
-			<li class="highlight">Item 6</li>
-		</ul>
+    <div id="connected">
+  		<ul class="connected list">
+  			<li>Item 1</li>
+  			<li>Item 2</li>
+  			<li>Item 3</li>
+  			<li>Item 4</li>
+  			<li>Item 5</li>
+  			<li>Item 6</li>
+  		</ul>
+  		<ul class="connected list no2">
+  			<li class="highlight">Item 1</li>
+  			<li class="highlight">Item 2</li>
+  			<li class="highlight">Item 3</li>
+  			<li class="highlight">Item 4</li>
+  			<li class="highlight">Item 5</li>
+  			<li class="highlight">Item 6</li>
+  		</ul>
+    </div>
 	</section>
-	<a href="http://github.com/farhadi/html5sortable"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://a248.e.akamai.net/assets.github.com/img/edc6dae7a1079163caf7f17c60495bbb6d027c93/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub"></a>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-	<script src="jquery.sortable.js"></script>
+	<script src="../jquery.sortable.js"></script>
 	<script>
 		$(function() {
 			$('.sortable').sortable();
