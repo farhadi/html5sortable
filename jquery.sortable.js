@@ -4,6 +4,10 @@
  * 
  * Copyright 2012, Ali Farhadi
  * Released under the MIT license.
+ * 
+ * Update by mytharcher(http://github.com/mytharcher) @2014-07-11:
+ * Add support for delegating usage (#59).
+ * Any dynamic children could be dragged by using this edition.
  */
 (function($) {
 var dragging, placeholders = $();
@@ -13,36 +17,39 @@ $.fn.sortable = function(options) {
 		connectWith: false
 	}, options);
 	return this.each(function() {
+		var items;
 		if (/^enable|disable|destroy$/.test(method)) {
-			var items = $(this).children($(this).data('items')).attr('draggable', method == 'enable');
+			items = $(this).children($(this).data('items')).attr('draggable', method == 'enable');
 			if (method == 'destroy') {
 				items.add(this).removeData('connectWith items')
 					.off('dragstart.h5s dragend.h5s selectstart.h5s dragover.h5s dragenter.h5s drop.h5s');
 			}
 			return;
 		}
-		var isHandle, index, items = $(this).children(options.items);
+		options.items = options.items || '> *';
+		var isHandle, index, $this = $(this);
 		var placeholder = $('<' + (/^ul|ol$/i.test(this.tagName) ? 'li' : 'div') + ' class="sortable-placeholder">');
-		items.find(options.handle).mousedown(function() {
-			isHandle = true;
-		}).mouseup(function() {
-			isHandle = false;
-		});
-		$(this).data('items', options.items)
 		placeholders = placeholders.add(placeholder);
 		if (options.connectWith) {
 			$(options.connectWith).add(this).data('connectWith', options.connectWith);
 		}
-		items.attr('draggable', 'true').on('dragstart.h5s', function(e) {
+		$this.children(options.items).attr('draggable', 'true');
+		$this.data('items', options.items
+		).on('mousedown',options.items,function() {
+			isHandle = true;
+		}).on('mouseup',options.items,function() {
+			isHandle = false;
+		}).on('dragstart.h5s',options.items,function(e) {
 			if (options.handle && !isHandle) {
 				return false;
 			}
 			isHandle = false;
+			items = $this.children(options.items);
 			var dt = e.originalEvent.dataTransfer;
 			dt.effectAllowed = 'move';
 			dt.setData('Text', 'dummy');
 			index = (dragging = $(this)).addClass('sortable-dragging').index();
-		}).on('dragend.h5s', function() {
+		}).on('dragend.h5s',options.items,function() {
 			if (!dragging) {
 				return;
 			}
@@ -51,11 +58,13 @@ $.fn.sortable = function(options) {
 			if (index != dragging.index()) {
 				dragging.parent().trigger('sortupdate', {item: dragging});
 			}
+
 			dragging = null;
-		}).not('a[href], img').on('selectstart.h5s', function() {
+		}).not(options.items + ' a[href],'+ options.items+' img').on('selectstart.h5s',options.items,function() {
 			this.dragDrop && this.dragDrop();
 			return false;
-		}).end().add([this, placeholder]).on('dragover.h5s dragenter.h5s drop.h5s', function(e) {
+		}).end();
+		$this.on('dragover.h5s dragenter.h5s drop.h5s',options.items+', .sortable-placeholder', function(e) {
 			if (!items.is(dragging) && options.connectWith !== $(dragging).parent().data('connectWith')) {
 				return true;
 			}
@@ -67,6 +76,7 @@ $.fn.sortable = function(options) {
 			}
 			e.preventDefault();
 			e.originalEvent.dataTransfer.dropEffect = 'move';
+
 			if (items.is(this)) {
 				if (options.forcePlaceholderSize) {
 					placeholder.height(dragging.outerHeight());
