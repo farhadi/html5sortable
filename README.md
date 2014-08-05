@@ -27,7 +27,9 @@ Use `sortupdate` event if you want to do something when the order changes (e.g. 
 
 ``` javascript
 $('.sortable').sortable().bind('sortupdate', function(e, ui) {
-    //ui.item contains the current dragged element.
+    //ui.item contains the current dragged element
+    //ui.oldIndex is the dragged element's original index in the list
+    //ui.newIndex is the dragged element's new index in the list
     //Triggered when the user stopped sorting and the DOM position has changed.
 });
 ```
@@ -51,6 +53,12 @@ Setting `forcePlaceholderSize` option to true, forces the placeholder to have a 
 ``` javascript
 $('.sortable').sortable({
     forcePlaceholderSize: true 
+});
+```
+Use `placeholderContents` to set the contents of the placeholder:
+``` javascript
+$('.sortable').sortable({
+    placeholderContents: '<div>Drop here</div>'
 });
 ```
 

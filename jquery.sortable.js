@@ -23,12 +23,15 @@ $.fn.sortable = function(options) {
 		}
 		var isHandle, index, items = $(this).children(options.items);
 		var placeholder = $('<' + (/^ul|ol$/i.test(this.tagName) ? 'li' : 'div') + ' class="sortable-placeholder">');
+		if (options.placeholderContents) {
+			placeholder.append(options.placeholderContents);
+		}
 		items.find(options.handle).mousedown(function() {
 			isHandle = true;
 		}).mouseup(function() {
 			isHandle = false;
 		});
-		$(this).data('items', options.items)
+		$(this).data('items', options.items);
 		placeholders = placeholders.add(placeholder);
 		if (options.connectWith) {
 			$(options.connectWith).add(this).data('connectWith', options.connectWith);
@@ -42,6 +45,9 @@ $.fn.sortable = function(options) {
 			dt.effectAllowed = 'move';
 			dt.setData('Text', 'dummy');
 			index = (dragging = $(this)).addClass('sortable-dragging').index();
+			if (options.forcePlaceholderSize) {
+				placeholders.height(dragging.height());
+			}
 		}).on('dragend.h5s', function() {
 			if (!dragging) {
 				return;
@@ -49,7 +55,11 @@ $.fn.sortable = function(options) {
 			dragging.removeClass('sortable-dragging').show();
 			placeholders.detach();
 			if (index != dragging.index()) {
-				dragging.parent().trigger('sortupdate', {item: dragging});
+				dragging.parent().trigger('sortupdate', {
+					item: dragging,
+					oldIndex: index,
+					newIndex: dragging.index()
+				});
 			}
 			dragging = null;
 		}).not('a[href], img').on('selectstart.h5s', function() {
@@ -67,10 +77,8 @@ $.fn.sortable = function(options) {
 			}
 			e.preventDefault();
 			e.originalEvent.dataTransfer.dropEffect = 'move';
+
 			if (items.is(this)) {
-				if (options.forcePlaceholderSize) {
-					placeholder.height(dragging.outerHeight());
-				}
 				dragging.hide();
 				$(this)[placeholder.index() < $(this).index() ? 'after' : 'before'](placeholder);
 				placeholders.not(placeholder).detach();
