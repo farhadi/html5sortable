@@ -22,7 +22,15 @@ $.fn.sortable = function(options) {
 			return;
 		}
 		var isHandle, index, items = $(this).children(options.items);
-		var placeholder = $('<' + (/^ul|ol$/i.test(this.tagName) ? 'li' : 'div') + ' class="sortable-placeholder">');
+		var placeholder;
+		if (/^ul|ol$/i.test(this.tagName)) {
+			placeholder = $('<li/>');
+		} else if (/^tbody$/i.test(this.tagName)) {
+			placeholder = $('<tr/>').html($('<td/>').attr({'colspan': options.colspan ? options.colspan : '' }));
+		} else {
+			placeholder = $('<div/>')
+		}
+		placeholder.addClass('sortable-placeholder');
 		items.find(options.handle).mousedown(function() {
 			isHandle = true;
 		}).mouseup(function() {
