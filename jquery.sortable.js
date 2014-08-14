@@ -21,8 +21,13 @@ $.fn.sortable = function(options) {
 			}
 			return;
 		}
-		var isHandle, index, items = $(this).children(options.items);
-		var placeholder = $('<' + (/^ul|ol$/i.test(this.tagName) ? 'li' : 'div') + ' class="sortable-placeholder">');
+		var isHandle, index, placeholder, items = $(this).children(options.items);
+		if (/^ul|ol$/i.test(this.tagName)) {
+			placeholder = $('<li class="sortable-placeholder"></li>');
+		} else if (/^tbody$/i.test(this.tagName)) {
+			var colspan = $("tr:first>td", this).length;
+			placeholder = $('<tr><td class="sortable-placeholder" colspan=' + colspan + '></td></tr>');
+		}
 		items.find(options.handle).mousedown(function() {
 			isHandle = true;
 		}).mouseup(function() {
