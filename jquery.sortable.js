@@ -13,7 +13,7 @@ $.fn.sortable = function(options) {
 		connectWith: false
 	}, options);
 	return this.each(function() {
-		if (/^enable|disable|destroy$/.test(method)) {
+		if (/^(enable|disable|destroy)$/.test(method)) {
 			var items = $(this).children($(this).data('items')).attr('draggable', method == 'enable');
 			if (method == 'destroy') {
 				items.add(this).removeData('connectWith items')
@@ -22,7 +22,7 @@ $.fn.sortable = function(options) {
 			return;
 		}
 		var isHandle, index, items = $(this).children(options.items);
-		var placeholder = $('<' + (/^ul|ol$/i.test(this.tagName) ? 'li' : 'div') + ' class="sortable-placeholder">');
+		var placeholder = $('<' + (/^(ul|ol)$/i.test(this.tagName) ? 'li' : 'div') + ' class="sortable-placeholder">');
 		items.find(options.handle).mousedown(function() {
 			isHandle = true;
 		}).mouseup(function() {
