@@ -71,6 +71,12 @@ $.fn.sortable = function(options) {
 				if (options.forcePlaceholderSize) {
 					placeholder.height(dragging.outerHeight());
 				}
+				if (options.twinsHolderClass) {
+					// reset all classes
+					placeholder.attr('class','sortable-placeholder');
+					// clone new element class
+					placeholder.addClass($(this).attr('class'));
+				}
 				dragging.hide();
 				$(this)[placeholder.index() < $(this).index() ? 'after' : 'before'](placeholder);
 				placeholders.not(placeholder).detach();
