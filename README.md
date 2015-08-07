@@ -28,6 +28,25 @@ Use `sortupdate` event if you want to do something when the order changes (e.g. 
 $('.sortable').sortable().bind('sortupdate', function(e, ui) {
     //ui.item contains the current dragged element.
     //Triggered when the user stopped sorting and the DOM position has changed.
+    
+    //Example:
+    
+    // // array to store new order
+    // updated_order = []
+    // // set the updated positions
+    // set_positions();
+
+    // // populate the updated_order array with the new task positions
+    // $('.class-for-element').each(function(i){
+    //     updated_order.push({ id: $(this).data("id"), position: i+1 });
+    // });
+
+    // // send the updated order via ajax
+    // $.ajax({
+    //     type: "PUT",
+    //     url: '/tasks/sort',
+    //     data: { order: updated_order }
+    // })
 });
 ```
 
