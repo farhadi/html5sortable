@@ -46,7 +46,7 @@ $('.sortable').sortable().bind('sortupdate', function(e, ui) {
     //     type: "PUT",
     //     url: '/tasks/sort',
     //     data: { order: updated_order }
-    // })
+    // });
 });
 ```
 
