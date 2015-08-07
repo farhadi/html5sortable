@@ -33,8 +33,6 @@ $('.sortable').sortable().bind('sortupdate', function(e, ui) {
     
     // // array to store new order
     // updated_order = []
-    // // set the updated positions
-    // set_positions();
 
     // // populate the updated_order array with the new task positions
     // $('.class-for-element').each(function(i){
