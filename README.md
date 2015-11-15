@@ -1,4 +1,6 @@
-This project is not mantained anymore. For an updated version please use [voidberg's fork](https://github.com/voidberg/html5sortable).
+DEPRECATION NOTICE
+------------------
+This project is not mantained anymore. I recommend using [RubaXa's Sortable](https://github.com/RubaXa/Sortable) or [voidberg's fork](https://github.com/voidberg/html5sortable) instead.
 
 HTML5 Sortable jQuery Plugin
 ============================
