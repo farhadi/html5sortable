@@ -49,7 +49,11 @@ $.fn.sortable = function(options) {
 			dragging.removeClass('sortable-dragging').show();
 			placeholders.detach();
 			if (index != dragging.index()) {
-				dragging.parent().trigger('sortupdate', {item: dragging});
+				dragging.parent().trigger('sortupdate', {
+					item: dragging,
+					fromIndex: index,
+					toIndex: dragging.index()
+				});
 			}
 			dragging = null;
 		}).not('a[href], img').on('selectstart.h5s', function() {
