@@ -6,7 +6,7 @@
  * Released under the MIT license.
  */
 (function($) {
-var dragging, placeholders = $();
+var dragging, draggingHeight, placeholders = $();
 $.fn.sortable = function(options) {
 	var method = String(options);
 	options = $.extend({
@@ -42,11 +42,12 @@ $.fn.sortable = function(options) {
 			dt.effectAllowed = 'move';
 			dt.setData('Text', 'dummy');
 			index = (dragging = $(this)).addClass('sortable-dragging').index();
+			draggingHeight = dragging.outerHeight();
 		}).on('dragend.h5s', function() {
 			if (!dragging) {
 				return;
 			}
-			dragging.removeClass('sortable-dragging').show();
+			dragging.removeClass('sortable-dragging').appendTo(this);
 			placeholders.detach();
 			if (index != dragging.index()) {
 				dragging.parent().trigger('sortupdate', {item: dragging});
@@ -69,9 +70,9 @@ $.fn.sortable = function(options) {
 			e.originalEvent.dataTransfer.dropEffect = 'move';
 			if (items.is(this)) {
 				if (options.forcePlaceholderSize) {
-					placeholder.height(dragging.outerHeight());
+					placeholder.height(draggingHeight);
 				}
-				dragging.hide();
+				dragging.detach();
 				$(this)[placeholder.index() < $(this).index() ? 'after' : 'before'](placeholder);
 				placeholders.not(placeholder).detach();
 			} else if (!placeholders.is(this) && !$(this).children(options.items).length) {
