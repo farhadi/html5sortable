@@ -70,6 +70,7 @@ $.fn.sortable = function(options) {
 			if (items.is(this)) {
 				if (options.forcePlaceholderSize) {
 					placeholder.height(dragging.outerHeight());
+					placeholder.width(dragging.outerWidth());
 				}
 				dragging.hide();
 				$(this)[placeholder.index() < $(this).index() ? 'after' : 'before'](placeholder);
