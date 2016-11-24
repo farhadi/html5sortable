@@ -51,10 +51,18 @@ Setting `forcePlaceholderSize` option to true, forces the placeholder to have a 
 
 ``` javascript
 $('.sortable').sortable({
-    forcePlaceholderSize: true 
+    forcePlaceholderSize: true
 });
 ```
+Setting `twinsHolderClass` option to true, forces the placeholder clone new holder item class
+work perfectively with forcePlaceholderSize:
 
+``` javascript
+$('.sortable').sortable({
+    forcePlaceholderSize: true ,
+    twinsHolderClass: true
+});
+```
 Use `connectWith` option to create connected lists:
 
 ``` javascript
