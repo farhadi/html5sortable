@@ -68,8 +68,16 @@ $.fn.sortable = function(options) {
 			e.preventDefault();
 			e.originalEvent.dataTransfer.dropEffect = 'move';
 			if (items.is(this)) {
+				var draggingHeight = dragging.outerHeight(), thisHeight = $(this).outerHeight();
 				if (options.forcePlaceholderSize) {
-					placeholder.height(dragging.outerHeight());
+					placeholder.height(draggingHeight); 
+				}
+				// Check if $(this) is bigger than the draggable. If it is, we have to define a dead zone to prevent flickering
+				if (thisHeight > draggingHeight){
+				  // Dead zone?
+				  var deadZone = thisHeight - draggingHeight, offsetTop = $(this).offset().top;
+				  if(placeholder.index() < $(this).index() && e.originalEvent.pageY < offsetTop + deadZone) return false;
+				  else if(placeholder.index() > $(this).index() && e.originalEvent.pageY > offsetTop + thisHeight - deadZone) return false;
 				}
 				dragging.hide();
 				$(this)[placeholder.index() < $(this).index() ? 'after' : 'before'](placeholder);
