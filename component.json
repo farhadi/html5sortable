@@ -1,0 +1,8 @@
+{
+  "name": "html5sortable",
+  "version": "0.0.1",
+  "main": "./jquery.sortable.js",
+  "dependencies": {
+    "jquery": "~1"
+  }
+}
