@@ -47,11 +47,19 @@ $('.sortable').sortable({
     handle: 'h2'
 });
 ```
+
+Use `placeholder` option to specifiy custom markup to be used as the placeholder while sorting in favour of the default '<li class="sortable-placeholder"></li>'
+``` javascript
+$('.sortable').sortable({
+    placeholder: '<li class="sortable-placeholder"><div></div></li>'
+});
+```
+
 Setting `forcePlaceholderSize` option to true, forces the placeholder to have a height:
 
 ``` javascript
 $('.sortable').sortable({
-    forcePlaceholderSize: true 
+    forcePlaceholderSize: true
 });
 ```
 
