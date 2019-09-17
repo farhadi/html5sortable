@@ -23,6 +23,10 @@ $.fn.sortable = function(options) {
 		}
 		var isHandle, index, items = $(this).children(options.items);
 		var placeholder = $('<' + (/^(ul|ol)$/i.test(this.tagName) ? 'li' : 'div') + ' class="sortable-placeholder">');
+		//Dans le cas d'une liste de section
+		if ( $(this).children().first().prop('tagName') == "SECTION")
+			placeholder= $('<section class="sortable-placeholder">');
+		
 		items.find(options.handle).mousedown(function() {
 			isHandle = true;
 		}).mouseup(function() {
